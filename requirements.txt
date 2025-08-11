@@ -1,0 +1,4 @@
+pandas
+weasyprint
+tqdm
+PyYAML
