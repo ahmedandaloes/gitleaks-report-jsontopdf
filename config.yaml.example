@@ -1,0 +1,22 @@
+# Gitleaks Report Converter Configuration
+# This file provides default values for CLI arguments
+
+# Input and output file paths
+input: gitleaks-report.json
+output: security-report.pdf
+
+# Report customization
+title: "Enterprise Security Scan Report"
+
+# Performance settings
+sample_size: 0  # 0 = process all findings, or set to limit for large datasets
+
+# Example configurations for different scenarios:
+# For quick preview of large reports:
+# sample_size: 100
+#
+# For CI/CD pipelines:
+# title: "CI/CD Security Scan - Build {{BUILD_NUMBER}}"
+#
+# For specific teams:
+# title: "Security Scan - {{TEAM_NAME}} - {{DATE}}"
