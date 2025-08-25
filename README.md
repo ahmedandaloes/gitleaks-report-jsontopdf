@@ -13,6 +13,10 @@ This tool converts Gitleaks JSON reports into a styled PDF (and optionally HTML)
 - **Config file support** for default settings
 - **Progress bar** for large reports
 - **Contact information** included in report footer
+- **Input validation** and comprehensive error handling
+- **Performance optimizations** for large datasets with sampling support
+- **Enhanced logging** with multiple levels and rich output
+- **Version information** and improved help system
 
 ## Setup
 
@@ -23,7 +27,7 @@ This tool converts Gitleaks JSON reports into a styled PDF (and optionally HTML)
 
 2. **(Optional) Run tests:**
    ```bash
-   pytest test_convert_report.py
+   pytest test_convert_report.py -v
    ```
 
 ## Configuration (Optional)
@@ -34,8 +38,10 @@ You can create a `config.yaml` file to set default values for input, output, tit
 input: gitleaks-report.json
 output: gitleaks-report.pdf
 title: Gitleaks Security Scan Report
-sample_size: 10
+sample_size: 0  # 0 = process all findings
 ```
+
+See `config.yaml.example` for more configuration options and examples.
 
 CLI arguments will override config.yaml values.
 
@@ -47,11 +53,12 @@ python convert_report.py --input gitleaks-report.json --output gitleaks-report.p
 
 **Arguments:**
 - `--input`: Path to Gitleaks JSON file (default: from config.yaml or gitleaks-report.json)
-- `--output`: Output PDF file (default: from config.yaml or gitleaks-report.pdf)
+- `--output`: Output PDF file path (default: from config.yaml or gitleaks-report.pdf)
 - `--title`: Report title (default: from config.yaml or "Gitleaks Security Scan Report")
-- `--html`: Also output HTML file
-- `--sample-size`: Sample size for time estimation (default: from config.yaml or 10)
-- `--log-level`: Logging level (WARNING, ERROR, CRITICAL only)
+- `--html`: Also generate HTML file
+- `--sample-size`: Limit report to N findings for large datasets (0=all, default: 0)
+- `--log-level`: Logging level (WARNING, ERROR, CRITICAL, INFO)
+- `--version`: Show version information
 
 ## Output Files
 
@@ -77,12 +84,17 @@ python convert_report.py --input my-leaks.json --output my-report.pdf --title "S
 - Add new remediation tips in `remediation_tip()`
 - Customize HTML/CSS in `generate_html()`
 - Add more CLI options as needed
+- Extend validation in `validate_json_file()` for custom requirements
 
 ## Development
-- Progress bar (tqdm) for large reports
-- Unit tests in `test_convert_report.py`
-- CI setup via GitHub Actions in `.github/workflows/python-app.yml`
-- Clean terminal output with summary table
+- **Enhanced error handling** and input validation
+- **Comprehensive type hints** for better IDE support
+- **Progress bar** (tqdm) for large reports
+- **Extensive unit tests** in `test_convert_report.py`
+- **CI setup** via GitHub Actions in `.github/workflows/python-app.yml`
+- **Clean terminal output** with summary table using Rich library
+- **Performance optimizations** for large datasets
+- **Modular code structure** for easy extension
 
 ## License
 MIT
